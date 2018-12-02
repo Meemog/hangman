@@ -68,7 +68,7 @@ HiddenWord = list(HiddenWord)
 Word = list(Word)
 CheckWord = HiddenWord
 
-if GameMode == "2":
+if GameMode == "2" or Word[len(Word)-1].isalpha():
     for i in range(0,len(Word)):
         if Word[i] == "/":
             HiddenWord[i] = '/'
