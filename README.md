@@ -5,4 +5,4 @@ a simple hangman game
 
 1. Multiple words - Done
 2. Saving multiplayer words for the computer to use - Done
-3. Music
+3. Music - Done
