@@ -1,5 +1,13 @@
 import random
 import re
+from pygame import mixer
+import time
+
+SongFile = "Reversed_Eclipse.mp3"
+
+mixer.init()
+mixer.music.load(SongFile)
+mixer.music.play(-1)
 
 WordFile = open("ComputerWords.txt", "r")
 
@@ -134,5 +142,6 @@ while GameOver != True:
         print("Congratulations, You win. The word was " + Word)
         GameOver = True
 
-
-
+mixer.music.fadeout(3000)
+time.sleep(3)
+mixer.music.stop()
