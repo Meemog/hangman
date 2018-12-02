@@ -1,7 +1,20 @@
 import random
 import re
 
-ComputerWords = ["motherboard", "hexadecimal", "python", "programming", "computer", "binary", "hexadecimal", "monitor", "image", "mouse", "keyboard", "ascii", "speakers", "compile", "headphones"]
+WordFile = open("ComputerWords.txt", "r")
+
+ComputerWords = WordFile.readlines()
+
+WordFile.close
+
+for ComputerWord in ComputerWords:
+
+    ComputerWord = list(ComputerWord)
+    if ComputerWord[len(ComputerWord)-1] == '\n':
+        del ComputerWord[len(ComputerWord)-1]
+
+    ComputerWord = "".join(ComputerWord)
+
 GameMode = "0"
 GameOver = False
 
@@ -35,19 +48,34 @@ while WordPass == False:
             WordPass = False
 
 
+if GameMode == "2":
+    WordFile = open("ComputerWords.txt", "a")
+    Word = Word.lower()
+    WordFile.writelines("\n" + Word)
+    WordFile.close()
+
 Word = Word.upper()
 HiddenWord = Word
 HiddenWord = list(HiddenWord)
 Word = list(Word)
 CheckWord = HiddenWord
 
-for i in range(0,len(Word)):
-    if Word[i] == "/":
-        HiddenWord[i] = '/'
-        CheckWord[i] = '/'
-    else:
-        HiddenWord[i] = '*'
-        CheckWord[i] = '*'
+if GameMode == "2":
+    for i in range(0,len(Word)):
+        if Word[i] == "/":
+            HiddenWord[i] = '/'
+            CheckWord[i] = '/'
+        else:
+            HiddenWord[i] = '*'
+            CheckWord[i] = '*'
+else:
+    for i in range(0,len(Word)-1):
+        if Word[i] == "/":
+            HiddenWord[i] = '/'
+            CheckWord[i] = '/'
+        else:
+            HiddenWord[i] = '*'
+            CheckWord[i] = '*'
 
 DisplayHiddenWord = HiddenWord
 DisplayHiddenWord = "".join(DisplayHiddenWord)
@@ -91,7 +119,8 @@ while GameOver != True:
     print(DisplayHiddenWord)
 
     if HitTotal == 7:
-        print("Game Over, You loose")
+        Word = "".join(Word)
+        print("Game Over, You loose. The word was " + Word)
         GameOver = True
     if Word == CheckWord:
         Win = True
